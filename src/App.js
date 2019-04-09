@@ -25,7 +25,7 @@ class App extends Component {
     }
     if (amount <= 50000) return 8;
     if (amount <= 150000) return 7;
-    return 7;
+    return 6;
   }
 
   handleSelectChange = e => {
@@ -62,7 +62,6 @@ class App extends Component {
     });
   };
 
-  handleInterestChange;
   render() {
     const {
       selectedTargetValue,
@@ -75,12 +74,13 @@ class App extends Component {
     return (
       <div className="App">
         <h3 className="header">Put together your business financing</h3>
-
         <div>
           <form>
             <div className="requested-value-container">
-              <label id="mini-title">Target</label>
-              <label id="mini-title">Company form</label>
+              <label className="mini-title">Target</label>
+              <label id="m-title" className="mini-title">
+                Company form
+              </label>
             </div>
             <div className="requested-value-container">
               <select
@@ -112,7 +112,7 @@ class App extends Component {
             </div>
 
             <div className="requested-value-container">
-              <label id="mini-title">Financing</label>
+              <label className="mini-title">Financing</label>
               <span className="input-euro left">
                 <input
                   name="selectedAmount"
@@ -148,7 +148,7 @@ class App extends Component {
             </div>
 
             <div className="requested-value-container">
-              <label id="mini-title">Duration</label>
+              <label className="mini-title">Duration</label>
               <select
                 id="d-select"
                 name="selectedDuration"
