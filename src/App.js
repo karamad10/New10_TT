@@ -32,27 +32,28 @@ class App extends Component {
     this.setState({ [name]: value });
   };
 
-  handleInterestChange = e => {
-    const { name, value } = e.target;
-    let selectedDurationValue;
-
-    if (name === "selectedAmount") {
+  handleAmountChange = e => {
+    const { value } = e.target;
+    if (!isNaN(value)) {
       this.setState({ selectedAmount: parseInt("" + value * 1000) });
-    } else if (name === "selectedDuration") {
-      selectedDurationValue = parseInt(value, 10);
-
-      const closestMonth = monthArray.reduce((prevNum, currNum) => {
-        return Math.abs(currNum - selectedDurationValue) <
-          Math.abs(prevNum - selectedDurationValue)
-          ? currNum
-          : prevNum;
-      });
-
-      this.setState({
-        selectedDuration: parseInt(value, 10),
-        durationOption: closestMonth
-      });
     }
+  };
+
+  handleDurationChange = e => {
+    const { value } = e.target;
+    let selectedDurationValue = parseInt(value, 10);
+
+    const closestMonth = monthArray.reduce((prevNum, currNum) => {
+      return Math.abs(currNum - selectedDurationValue) <
+        Math.abs(prevNum - selectedDurationValue)
+        ? currNum
+        : prevNum;
+    });
+
+    this.setState({
+      selectedDuration: parseInt(value, 10),
+      durationOption: closestMonth
+    });
   };
 
   render() {
@@ -112,7 +113,7 @@ class App extends Component {
                   type="text"
                   value={(selectedAmount / 1000).toFixed(3)}
                   id="amount-input"
-                  onChange={this.handleInterestChange}
+                  onChange={this.handleAmountChange}
                 />
               </span>
             </div>
@@ -131,7 +132,7 @@ class App extends Component {
                 }
                 step="1.00"
                 value={(selectedAmount / 1000).toFixed(3)}
-                onChange={this.handleInterestChange}
+                onChange={this.handleAmountChange}
               />
             </div>
 
@@ -147,7 +148,7 @@ class App extends Component {
                 name="selectedDuration"
                 value={durationOption}
                 className="select-value"
-                onChange={this.handleInterestChange}
+                onChange={this.handleDurationChange}
               >
                 <option disabled>Choose duration</option>
                 {monthArray.map((month, index) => (
@@ -166,7 +167,7 @@ class App extends Component {
                 max={60}
                 step="1"
                 value={selectedDuration}
-                onChange={this.handleInterestChange}
+                onChange={this.handleDurationChange}
               />
             </div>
             <div id="footer">
